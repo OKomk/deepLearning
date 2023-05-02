@@ -1,6 +1,10 @@
-import cv2
+import tensorflow as tf
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+tf.config.list_physical_devices('GPU')
 
-file = cv2.imread(r'C:\Users\Kshat\Documents\StudyMaterial\cs671\assn3\Group_18\train\0\img_1.jpg')
-print(file)
-cv2.imshow('Image',file)
-cv2.waitKey(0)
+with tf.device('/gpu:0'):
+    a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+    b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+    c = tf.matmul(a, b)
+
+print(c)
